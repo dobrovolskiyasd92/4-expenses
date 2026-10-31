@@ -1,7 +1,7 @@
 import re
 
-price = input('Введите сумму: ').strip(' ')
-pattern = r'^\d+\s*ру?б?\s*(?:\d+\s*ко?п?)?\.?$'
+price = input('Введите сумму: ').strip(' ').lower()
+pattern = r'^\d+\s*ру?б?\s*(?:\d{1,2}\s*ко?п?)?\.?$'
 
 if bool(re.match(pattern, price)):
     price_list = re.findall(r'\d+', price)
@@ -10,8 +10,8 @@ if bool(re.match(pattern, price)):
         print(f'{edited_price[0]}.{edited_price[1]:02d} {chr(8381)}')
     else:
         edited_price = [int(price_list[0])]
-        print(f'{edited_price[0]} {chr(8381)}')
+        print(f'{edited_price[0]}.00 {chr(8381)}')
 else:
-    print('Некорректный ввод суммы')
+    print('Некорректный формат суммы')
 
 
