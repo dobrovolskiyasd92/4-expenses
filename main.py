@@ -1,8 +1,8 @@
 import re
 
 price = input('Введите сумму: ').strip(' ').lower()
-pattern = r'^\d+\s*ру?б?\s*(?:\d{1,2}\s*ко?п?)?\.?$'
-
+# pattern = r'^\d+\s*ру?б?/\s*(?:\d{1,2}\s*ко?п?)?\.?$'
+pattern = r'^\d+\s*(?:руб|рубль|рубля|рублей)(?:\s+\d{1,2}\s*(?:коп|копейка|копейки|копеек)\.?)?$'
 if bool(re.match(pattern, price)):
     price_list = re.findall(r'\d+', price)
     if len(price_list) == 2:
