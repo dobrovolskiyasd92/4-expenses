@@ -1,28 +1,17 @@
-price = input("Введите сумму в формате X руб (Y коп): ")
+import re
 
-tmp_price = price.lower().replace(' ', '').replace('.', '')
+price = input('Введите сумму: ').strip(' ')
+pattern = r'^\d+\s*ру?б?\s*(?:\d+\s*ко?п?)?\.?$'
 
-
-if not 'руб' in tmp_price:
-    print('Некорректный формат суммы')
-    exit()
-
-tmp_price = tmp_price.rstrip('коп').rstrip('к').split('руб')
-
-if len(tmp_price[1]) > 2:
-    print('Некорректный формат суммы')
-    exit()
-
-if not tmp_price[0].isdigit():
-    print('Некорректный формат суммы')
-    exit()
-
-edited_price = [int(tmp_price[0]), int(tmp_price[1])]
-
-if edited_price[1]:
-    print(f'{edited_price[0]}.{edited_price[1]:02d} {chr(8381)}')
+if bool(re.match(pattern, price)):
+    price_list = re.findall(r'\d+', price)
+    if len(price_list) == 2:
+        edited_price = [int(price_list[0]), int(price_list[1])]
+        print(f'{edited_price[0]}.{edited_price[1]:02d} {chr(8381)}')
+    else:
+        edited_price = [int(price_list[0])]
+        print(f'{edited_price[0]} {chr(8381)}')
 else:
-    print(f'{edited_price[0]} {chr(8381)}')
-
+    print('Некорректный ввод суммы')
 
 
