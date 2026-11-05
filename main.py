@@ -40,23 +40,22 @@ def print_report(expenses_list):
 
 def get_total_sum(expenses_list):
     tmp_expenses_list = map(create_floats_val, expenses_list)
-    total_sum = reduce(lambda x, y: x + y, tmp_expenses_list)
+    total_sum = reduce(lambda x, y: x + y, tmp_expenses_list, 0)
     return total_sum
 
 def create_floats_val(expenses_val):
     return float(expenses_val.split(' ')[0])
 
 def average_expense(expenses_list):
-    return get_total_sum(expenses_list) / len(expenses_list)
+    return 0 if not expenses_list else get_total_sum(expenses_list) / len(expenses_list)
 
 def del_expense(expenses_list, index):
     try:
         if index <= 0:
             raise ValueError
         else:
-            print(f'Расход на {expenses_list.pop(del_index - 1)} удален')
-    except IndexError:
-        print('Нет такого элемента в списке')
+            print(f'Расход на {expenses_list.pop(index - 1)} удален')
+
     except ValueError:
         print('Некорректный ввод! Введите правильное значение')
 
@@ -103,8 +102,13 @@ while True:
         case 'del':
             print('Удалить расход')
             print_report(expenses)
-            del_index = int(input('Какой расход удалить? '))
-            del_expense(expenses, del_index)
+            try:
+                del_index = int(input('Какой расход удалить? '))
+                del_expense(expenses, del_index)
+            except ValueError:
+                print('Введено неверное значение. Повторите ввод')
+            except IndexError:
+                print('Нет такого элемента в списке')
         case 'exit':
             print('Выход')
             break
