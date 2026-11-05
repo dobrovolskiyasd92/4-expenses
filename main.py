@@ -85,10 +85,18 @@ while True:
             pass
         case 'total':
             print('Показать сумму')
-            print(f'Общая сумма расходов: {get_total_sum(expenses):.2f} {chr(8381)}')
+            if len(expenses) == 0:
+                print('Расходы равны 0!')
+                continue
+            else:
+                print(f'Общая сумма расходов: {get_total_sum(expenses):.2f} {chr(8381)}')
         case 'avg':
             print('Показать средний расход')
-            print(f'Средний расход: {average_expense(expenses):.2f} {chr(8381)}')
+            if len(expenses) == 0:
+                print('Расходы равны 0!')
+                continue
+            else:
+                print(f'Средний расход: {average_expense(expenses):.2f} {chr(8381)}')
         case 'del':
             print('Удалить расход')
             del_expense(expenses)
