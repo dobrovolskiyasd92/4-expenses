@@ -30,6 +30,8 @@ def add_expenses(expenses_list, value):
             expenses_list.append(f'{int(tmp_expenses[0])}.{int(tmp_expenses[1]):02d} {chr(8381)}')
         else:
             expenses_list.append(f'{tmp_expenses[0]}.00 {chr(8381)}')
+    else:
+        print('Неккоректно введена сумма! Попробуйте снова')
 
 
 def print_report(expenses_list):
@@ -47,11 +49,12 @@ def create_floats_val(expenses_val):
 def average_expense(expenses_list):
     return get_total_sum(expenses_list) / len(expenses_list)
 
-def del_expense(expenses_list):
-    print_report(expenses_list)
+def del_expense(expenses_list, index):
     try:
-        del_index = int(input('Какой расход удалить? '))
-        print(f'Расход на {expenses_list.pop(del_index - 1)} удален')
+        if index <= 0:
+            raise ValueError
+        else:
+            print(f'Расход на {expenses_list.pop(del_index - 1)} удален')
     except IndexError:
         print('Нет такого элемента в списке')
     except ValueError:
@@ -99,7 +102,9 @@ while True:
                 print(f'Средний расход: {average_expense(expenses):.2f} {chr(8381)}')
         case 'del':
             print('Удалить расход')
-            del_expense(expenses)
+            print_report(expenses)
+            del_index = int(input('Какой расход удалить? '))
+            del_expense(expenses, del_index)
         case 'exit':
             print('Выход')
             break
